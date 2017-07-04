@@ -7,7 +7,9 @@ import com.gxb.sdk.parm.config.LoginConfig;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -25,7 +27,7 @@ public interface EcommerceApi {
      * @param latitude 用户手机所在的定位维度
      * @return
      */
-    @GET("/ecommerce/v2/initConfig/taobao/{token}")
+    @GET("ecommerce/v2/init_config/taobao/{token}")
     Call<GxbResponse<LoginConfig>> getTaobaoInitConf(@Path("token") String token, @Query("longitude") String longitude,
             @Query("latitude") String latitude);
 
@@ -39,7 +41,7 @@ public interface EcommerceApi {
      * @param latitude 用户手机所在的定位维度
      * @return
      */
-    @GET("/ecommerce/v2/initConfig/alipay/{token}")
+    @GET("ecommerce/v2/init_config/alipay/{token}")
     Call<GxbResponse<LoginConfig>> getAliapyInitConf(@Path("token") String token, @Query("longitude") String longitude,
             @Query("latitude") String latitude);
 
@@ -50,7 +52,7 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("/ecommerce/v2/get_status/{token}")
+    @GET("ecommerce/v2/get_status/{token}")
     Call<GxbResponse<Status>> getStatus(@Path("token") String token);
 
 
@@ -60,7 +62,7 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("/ecommerce/v2/refresh_qr_code/{token}")
+    @GET("ecommerce/v2/refresh_qr_code/{token}")
     Call<GxbResponse<Status>> refreshLoginQrCode(@Path("token") String token);
 
 
@@ -70,7 +72,7 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("/ecommerce/v2/refresh_verify_code/{token}")
+    @GET("ecommerce/v2/refresh_verify_code/{token}")
     Call<GxbResponse<Status>> refreshLoginPicCode(@Path("token") String token);
 
 
@@ -80,7 +82,7 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("/ecommerce/v2/refresh_sms_code/{token}")
+    @GET("ecommerce/v2/refresh_sms_code/{token}")
     Call<GxbResponse<Status>> refreshLoginSmsCode(@Path("token") String token);
 
 
@@ -90,7 +92,17 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("/ecommerce/v2/submit/{token}")
+    @GET("ecommerce/v2/login_submit/{token}")
     Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginInfo loginInfo);
+
+
+    /**
+     * 刷新电商登录的短信验证码，目前暂未实际使用
+     * 
+     * @param token
+     * @return
+     */
+    @POST("ecommerce/v2/code_submit/{token}")
+    Call<GxbResponse<Status>> submitVarifyCode(@Path("token") String token, @Field("code") String code);
 
 }

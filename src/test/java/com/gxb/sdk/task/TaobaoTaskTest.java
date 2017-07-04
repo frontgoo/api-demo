@@ -180,9 +180,8 @@ public class TaobaoTaskTest extends AbstractGxbTest {
      * @see com.gxb.sdk.task.AbstractGxbTest#submitVarifyCode(java.lang.String)
      */
     @Override
-    protected Status submitVarifyCode(String token, String code) {
-        return null;
+    protected Status submitVarifyCode(String token, String code) throws IOException {
+        return ecommerceApi.submitVarifyCode(token, code).execute().body().getData();
     }
-
 
 }
