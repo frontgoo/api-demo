@@ -35,8 +35,8 @@ import com.gxb.sdk.parm.config.LoginForm;
  * @version 1.0
  * @since 2017年6月23日 下午2:12:26
  */
-public class TaobaoTaskTest extends AbstractGxbTest {
-    private static final Logger logger = LoggerFactory.getLogger(TaobaoTaskTest.class);
+public class AliapyTaskTest extends AbstractGxbTest {
+    private static final Logger logger = LoggerFactory.getLogger(AliapyTaskTest.class);
 
     EcommerceApi ecommerceApi = moxieApiFactory.newApi(EcommerceApi.class);
 
@@ -54,11 +54,11 @@ public class TaobaoTaskTest extends AbstractGxbTest {
 
 
     @Test
-    public void doTaobaoTask() throws Exception {
+    public void doAlipayTask() throws Exception {
         // step1:生成token
         AuthToken authToken = getAuthToken();
         // step2:获取淘宝授权初始化配置，定位地址为杭州
-        LoginConfig loginConfig = ecommerceApi.getTaobaoInitConf(authToken.getToken(), "30.2787781", "120.1198557").execute().body().getData();
+        LoginConfig loginConfig = ecommerceApi.getAliapyInitConf(authToken.getToken(), "30.2787781", "120.1198557").execute().body().getData();
         // step3：前端页面更加loginConfig动态的渲染页面，理论上本页面配置不会经常变更
         logger.info("已成功获取授权项{}-{}的登录初始化配置，最近更新时间{}", loginConfig.getAuthItem(), loginConfig.getAuthName(), loginConfig.getLastUpdatedAt());
         logger.info("当前网站支持{}种授权登录方式", loginConfig.getLoginForms().size());

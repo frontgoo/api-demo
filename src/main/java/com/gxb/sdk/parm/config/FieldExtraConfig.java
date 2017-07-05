@@ -25,7 +25,7 @@ public class FieldExtraConfig {
     private FieldExtraType fieldExtraType;
 
     /**
-     * 短信验证码刷新间隔
+     * 短信验证码发送间隔
      */
     private int smsInterval;
 
