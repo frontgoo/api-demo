@@ -92,7 +92,7 @@ public interface EcommerceApi {
      * @param token
      * @return
      */
-    @GET("ecommerce/v2/login_submit/{token}")
+    @POST("ecommerce/v2/login_submit/{token}")
     Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginInfo loginInfo);
 
 
