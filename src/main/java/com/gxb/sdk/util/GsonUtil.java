@@ -45,7 +45,7 @@ public class GsonUtil {
      * @param type the type to convert
      * @return an object of type
      */
-    public static <T> T fromJson(String json, Class<?> type) {
+    public static <T> T fromJson(String json, Class<T> type) {
         return gson.fromJson(json, type);
     }
 
