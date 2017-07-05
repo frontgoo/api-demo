@@ -38,7 +38,7 @@ import com.gxb.sdk.parm.config.LoginForm;
 public class AliapyTaskTest extends AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AliapyTaskTest.class);
 
-    EcommerceApi ecommerceApi = moxieApiFactory.newApi(EcommerceApi.class);
+    EcommerceApi ecommerceApi = gxbApiFactory.newApi(EcommerceApi.class);
 
     /*
      * 生产每次授权所需要的基本参数实体

@@ -56,7 +56,7 @@ public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
     private OkHttpClient client = new OkHttpClient();
 
-    protected GxbApiFactory moxieApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
+    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
     protected String appId = "gxba57f409ca1fe2dfa";
     protected String appSecret = "2d1844d9dd8540149e936b0125c4f8de";
 
@@ -88,7 +88,7 @@ public abstract class AbstractGxbTest {
      * @throws IOException
      */
     protected AuthToken getAuthToken() throws IOException {
-        AuthApi authApi = moxieApiFactory.newApi(AuthApi.class);
+        AuthApi authApi = gxbApiFactory.newApi(AuthApi.class);
         AuthParm parm = getAuthParm();
         Response<GxbResponse<AuthToken>> response =
                 authApi.auth(AuthRequest.builder(appId, appSecret, parm.getSequenceNo(), parm.getTimestamp(), parm.getAuthItem())
