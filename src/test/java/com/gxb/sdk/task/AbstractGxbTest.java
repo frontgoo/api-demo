@@ -56,7 +56,7 @@ public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
     private OkHttpClient client = new OkHttpClient();
 
-    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
+    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();;
     /**
      * 此处请使用开户时创建的appid 和appSecurity，不然无法收到推送数据
      */
