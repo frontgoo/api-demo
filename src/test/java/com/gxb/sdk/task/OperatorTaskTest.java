@@ -31,7 +31,7 @@ public class OperatorTaskTest extends AbstractGxbTest {
     @Override
     protected AuthParm getAuthParm() {
         String sequenceNo = UUID.randomUUID().toString().replace("-", "");
-        return new AuthParm(sequenceNo, "operator", System.currentTimeMillis(), "周海松", "15858284747", "330682199011221410");
+        return new AuthParm(sequenceNo, "operator", System.currentTimeMillis(), "周海松", "15068820568", "330682199011221410");
     }
 
     @Test
