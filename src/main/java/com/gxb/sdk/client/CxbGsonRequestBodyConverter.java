@@ -13,6 +13,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonWriter;
@@ -20,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.Buffer;
+import okio.ByteString;
 import retrofit2.Converter;
 
 /**
@@ -29,6 +33,8 @@ import retrofit2.Converter;
  * @since 2017年6月22日 下午11:22:04
  */
 public class CxbGsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
+    private static final Logger logger = LoggerFactory.getLogger(CxbGsonRequestBodyConverter.class);
+
     private static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
@@ -47,6 +53,9 @@ public class CxbGsonRequestBodyConverter<T> implements Converter<T, RequestBody>
         JsonWriter jsonWriter = gson.newJsonWriter(writer);
         adapter.write(jsonWriter, value);
         jsonWriter.close();
-        return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
+        ByteString requestBody = buffer.readByteString();
+        logger.debug("get CxbGsonRequestBody: {}", requestBody.string(UTF_8));
+
+        return RequestBody.create(MEDIA_TYPE, requestBody);
     }
 }

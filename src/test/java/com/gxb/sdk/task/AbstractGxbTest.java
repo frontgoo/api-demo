@@ -33,7 +33,7 @@ import com.gxb.sdk.parm.AuthRequest;
 import com.gxb.sdk.parm.AuthToken;
 import com.gxb.sdk.parm.GxbResponse;
 import com.gxb.sdk.parm.LoginRequest;
-import com.gxb.sdk.parm.QrCodeResult;
+import com.gxb.sdk.parm.QrCode;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.Status.PhaseStatus;
 import com.gxb.sdk.parm.config.LoginField;
@@ -113,10 +113,9 @@ public abstract class AbstractGxbTest {
     protected boolean qrFormInit(LoginForm loginForm, AuthToken token) throws IOException {
         Status status = refreshLoginQrCode(token.getToken());
         if (status != null && PhaseStatus.REFRESH_QR_CODE_SUCCESS.equals(status.getPhaseStatus())) {
-            QrCodeResult qrCodeResult = GsonUtil.fromJson(status.getExtra().getRemark(), QrCodeResult.class);
-            logger.info("二维码获取成功，httpQrcode:{},rpcQrcode:{},weisite{}", qrCodeResult.getHttpQRCode(), qrCodeResult.getRpcQRCode(),
-                    qrCodeResult.getWebsite());
-            return mockQrCodeLoginView(loginForm, status, qrCodeResult);
+            QrCode qrCode = status.getExtra().getQrCode();
+            logger.info("二维码获取成功，httpQrcode:{},rpcQrcode:{},weisite{}", qrCode.getHttpQRCode(), qrCode.getRpcQRCode(), qrCode.getWebsite());
+            return mockQrCodeLoginView(loginForm, status, qrCode);
         } else {
             logger.warn("{}刷新二维码失败", loginForm.getFormName());
             return false;
@@ -131,7 +130,7 @@ public abstract class AbstractGxbTest {
      * @param qrCodeResult
      * @throws IOException
      */
-    protected boolean mockQrCodeLoginView(LoginForm loginForm, Status status, QrCodeResult qrCodeResult) throws IOException {
+    protected boolean mockQrCodeLoginView(LoginForm loginForm, Status status, QrCode qrCodeResult) throws IOException {
         // 生成二维码图片
         okhttp3.Response response = client.newCall(new Request.Builder().url(qrCodeResult.getHttpQRCode()).build()).execute();
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(response.body().bytes()));
@@ -334,9 +333,11 @@ public abstract class AbstractGxbTest {
      * @throws IOException
      */
     protected void mockQRStatusView(Status status) throws IOException {
-        QrCodeResult qrCodeResult = GsonUtil.fromJson(status.getExtra().getRemark(), QrCodeResult.class);
+        QrCode qrCode = status.getExtra().getQrCode();
+        logger.info("抓取过程中需要二维码验证，httpQrcode:{},rpcQrcode:{},weisite{}", qrCode.getHttpQRCode(), qrCode.getRpcQRCode(), qrCode.getWebsite());
+
         // 生成二维码图片
-        okhttp3.Response response = client.newCall(new Request.Builder().url(qrCodeResult.getHttpQRCode()).build()).execute();
+        okhttp3.Response response = client.newCall(new Request.Builder().url(qrCode.getHttpQRCode()).build()).execute();
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(response.body().bytes()));
         logger.info("抓取过程中二维码上方展示：{}，二维码下方引导的tips：{}", status.getExtra().getTitle(), status.getExtra().getTips());
         JPanel panel = new JPanel();

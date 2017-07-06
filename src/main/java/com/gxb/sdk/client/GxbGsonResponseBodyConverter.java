@@ -15,11 +15,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.gxb.sdk.exception.GxbApiException;
 import com.gxb.sdk.parm.GxbResponse;
+import com.gxb.sdk.task.AbstractGxbTest;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
@@ -32,6 +36,7 @@ import retrofit2.Converter;
  * @since 2017年6月22日 下午11:22:34
  */
 public class GxbGsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
+    private static final Logger logger = LoggerFactory.getLogger(GxbGsonResponseBodyConverter.class);
     private final Gson gson;
     private final TypeAdapter<T> adapter;
 
@@ -43,6 +48,8 @@ public class GxbGsonResponseBodyConverter<T> implements Converter<ResponseBody, 
     @Override
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
+        logger.debug("get GxbGsonResponseBody: {}", response);
+
         GxbResponse gxbResponse = gson.fromJson(response, GxbResponse.class);
         // 拦截所有业务错误
         if (!gxbResponse.isSuccess()) {

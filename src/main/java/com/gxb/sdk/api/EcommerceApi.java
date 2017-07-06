@@ -8,7 +8,6 @@ import com.gxb.sdk.parm.config.LoginConfig;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,7 +20,7 @@ public interface EcommerceApi {
     /**
      * 根据用户的所在地区获取初始化淘宝配置，gxb讲根据定位信息使用用户附近的ip进行抓取任务，减少异地登录提醒,提升交互体验
      * 
-     * ps:取不到或者不传并不会明显影响抓取成功率
+     * ps:经纬度取不到或者不传并不会明显影响抓取成功率
      * 
      * @param token 用户的授权token
      * @param longitude 用户手机所在的定位经度
@@ -35,7 +34,7 @@ public interface EcommerceApi {
     /**
      * 根据用户的所在地区获取初始化支付宝配置，gxb讲根据定位信息使用用户附近的ip进行抓取任务，减少异地登录提醒,提升交互体验
      * 
-     * ps:取不到或者不传并不会明显影响抓取成功率
+     * ps:经纬度取不到或者不传并不会明显影响抓取成功率
      * 
      * @param token 用户的授权token
      * @param longitude 用户手机所在的定位经度

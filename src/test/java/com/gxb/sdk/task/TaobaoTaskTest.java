@@ -64,7 +64,7 @@ public class TaobaoTaskTest extends AbstractGxbTest {
         logger.info("已成功获取授权项{}-{}的登录初始化配置，最近更新时间{}", loginConfig.getAuthItem(), loginConfig.getAuthName(), loginConfig.getLastUpdatedAt());
         logger.info("当前网站支持{}种授权登录方式", loginConfig.getLoginForms().size());
         // 此处默认选择第一种方式作为测试用例
-        LoginForm testLoginForm = loginConfig.getLoginForms().get(1);
+        LoginForm testLoginForm = loginConfig.getLoginForms().get(0);
         logger.info("本用例采用{}登录模式作为测试", testLoginForm.getFormName());
         // step4:loginForm 状态监测,验证当前的login模式是否处于正常服务状态
         if (loginFormStatusCheck(testLoginForm)) {
