@@ -22,7 +22,8 @@ import org.slf4j.LoggerFactory;
 import com.gxb.sdk.api.EcommerceApi;
 import com.gxb.sdk.parm.AuthParm;
 import com.gxb.sdk.parm.AuthToken;
-import com.gxb.sdk.parm.LoginInfo;
+import com.gxb.sdk.parm.CodeSubmitRequest;
+import com.gxb.sdk.parm.LoginRequest;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.Status.PhaseStatus;
 import com.gxb.sdk.parm.Status.Stage;
@@ -159,7 +160,7 @@ public class AliapyTaskTest extends AbstractGxbTest {
      * @see com.gxb.sdk.task.AbstractGxbTest#submitLogin()
      */
     @Override
-    protected Status submitLogin(String token, LoginInfo loginInfo) throws IOException {
+    protected Status submitLogin(String token, LoginRequest loginInfo) throws IOException {
         return ecommerceApi.submitLogin(token, loginInfo).execute().body().getData();
     }
 
@@ -182,7 +183,7 @@ public class AliapyTaskTest extends AbstractGxbTest {
      */
     @Override
     protected Status submitVarifyCode(String token, String code) throws IOException {
-        return ecommerceApi.submitVarifyCode(token, code).execute().body().getData();
+        return ecommerceApi.submitVarifyCode(token, new CodeSubmitRequest(code)).execute().body().getData();
     }
 
 }

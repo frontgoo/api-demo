@@ -32,7 +32,7 @@ import com.gxb.sdk.parm.AuthParm;
 import com.gxb.sdk.parm.AuthRequest;
 import com.gxb.sdk.parm.AuthToken;
 import com.gxb.sdk.parm.GxbResponse;
-import com.gxb.sdk.parm.LoginInfo;
+import com.gxb.sdk.parm.LoginRequest;
 import com.gxb.sdk.parm.QrCodeResult;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.Status.PhaseStatus;
@@ -56,7 +56,7 @@ public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
     private OkHttpClient client = new OkHttpClient();
 
-    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
+    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();;
     protected String appId = "gxba57f409ca1fe2dfa";
     protected String appSecret = "2d1844d9dd8540149e936b0125c4f8de";
 
@@ -73,7 +73,7 @@ public abstract class AbstractGxbTest {
 
     protected abstract Status refreshLoginSmsCode(String token) throws IOException;
 
-    protected abstract Status submitLogin(String token, LoginInfo loginInfo) throws IOException;
+    protected abstract Status submitLogin(String token, LoginRequest loginInfo) throws IOException;
 
     protected abstract Status getStatus(String token) throws IOException;
 
@@ -271,7 +271,7 @@ public abstract class AbstractGxbTest {
                     logger.info("获取输入参数名：{}，输入内容：{}", name, value);
                     parm.put(name, value);
                 }
-                submitLogin(token.getToken(), GsonUtil.fromJson(GsonUtil.toJson(parm), LoginInfo.class));
+                submitLogin(token.getToken(), GsonUtil.fromJson(GsonUtil.toJson(parm), LoginRequest.class));
             }
         }
     }

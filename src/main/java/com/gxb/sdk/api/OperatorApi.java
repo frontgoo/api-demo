@@ -1,11 +1,18 @@
 package com.gxb.sdk.api;
 
+import com.gxb.sdk.parm.CodeSubmitRequest;
 import com.gxb.sdk.parm.GxbResponse;
-import com.gxb.sdk.parm.LoginInfo;
+import com.gxb.sdk.parm.LoginRequest;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.config.LoginConfig;
+
 import retrofit2.Call;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * 运营商API
@@ -55,7 +62,7 @@ public interface OperatorApi {
      * @return
      */
     @POST("operator/v2/login_submit/{token}")
-    Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginInfo loginInfo);
+    Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginRequest loginRequest);
 
     /**
      * 提交运营商短信验证码
@@ -64,6 +71,5 @@ public interface OperatorApi {
      * @return
      */
     @POST("operator/v2/code_submit/{token}")
-    @FormUrlEncoded
-    Call<GxbResponse<Status>> submitCode(@Path("token") String token, @Field("code") String code);
+    Call<GxbResponse<Status>> submitCode(@Path("token") String token, @Body CodeSubmitRequest request);
 }

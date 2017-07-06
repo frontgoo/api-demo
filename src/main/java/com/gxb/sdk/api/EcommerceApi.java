@@ -1,14 +1,14 @@
 package com.gxb.sdk.api;
 
+import com.gxb.sdk.parm.CodeSubmitRequest;
 import com.gxb.sdk.parm.GxbResponse;
-import com.gxb.sdk.parm.LoginInfo;
+import com.gxb.sdk.parm.LoginRequest;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.config.LoginConfig;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -88,23 +88,22 @@ public interface EcommerceApi {
 
 
     /**
-     * 刷新电商登录的短信验证码，目前暂未实际使用
+     * 登录提交接口，提交后就要开始轮训后台状态，直到登录成功或失败
      * 
      * @param token
      * @return
      */
     @POST("ecommerce/v2/login_submit/{token}")
-    Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginInfo loginInfo);
+    Call<GxbResponse<Status>> submitLogin(@Path("token") String token, @Body LoginRequest loginInfo);
 
 
     /**
-     * 刷新电商登录的短信验证码，目前暂未实际使用
+     * 提交电商验证过程中二次验证码，包括图片，或者短信认证，提交后就要开始轮训后台状态
      * 
      * @param token
      * @return
      */
     @POST("ecommerce/v2/code_submit/{token}")
-    @FormUrlEncoded
-    Call<GxbResponse<Status>> submitVarifyCode(@Path("token") String token, @Field("code") String code);
+    Call<GxbResponse<Status>> submitVarifyCode(@Path("token") String token, @Body CodeSubmitRequest request);
 
 }

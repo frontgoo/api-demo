@@ -1,22 +1,24 @@
 package com.gxb.sdk.task;
 
-import com.gxb.sdk.api.OperatorApi;
-import com.gxb.sdk.parm.AuthParm;
-import com.gxb.sdk.parm.AuthToken;
-import com.gxb.sdk.parm.LoginInfo;
-import com.gxb.sdk.parm.Status;
-import com.gxb.sdk.parm.config.LoginConfig;
-import com.gxb.sdk.parm.config.LoginForm;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.gxb.sdk.api.OperatorApi;
+import com.gxb.sdk.parm.AuthParm;
+import com.gxb.sdk.parm.AuthToken;
+import com.gxb.sdk.parm.CodeSubmitRequest;
+import com.gxb.sdk.parm.LoginRequest;
+import com.gxb.sdk.parm.Status;
+import com.gxb.sdk.parm.config.LoginConfig;
+import com.gxb.sdk.parm.config.LoginForm;
 
 /**
  * Created by yaojun on 2017/7/5.
@@ -51,14 +53,15 @@ public class OperatorTaskTest extends AbstractGxbTest {
                 // step6:用swing mock提交执行登录
                 mockJPaneLogin(testLoginForm, authToken);
                 // step7:对登录结果开始发起轮询。登录轮询最多3分钟。每次任务必然会返回终止状态，gxb接口会保证这点，3分钟只是做业务的逻辑退避，理论上不需要设置
-                List<Status.PhaseStatus> loginEndPhaseStatus = Arrays.asList(Status.PhaseStatus.LOGIN_SUCCESS, Status.PhaseStatus.LOGIN_FAILED, Status.PhaseStatus.FAILED);
+                List<Status.PhaseStatus> loginEndPhaseStatus =
+                        Arrays.asList(Status.PhaseStatus.LOGIN_SUCCESS, Status.PhaseStatus.LOGIN_FAILED, Status.PhaseStatus.FAILED);
                 Status loginResultStatus = processing(new Callable<Status>() {
                     @Override
                     public Status call() throws Exception {
                         Status status = getStatus(authToken.getToken());
                         // step7: 处理登录过程中可能存在的交互，包括短信验证，图片验证，登录失败等。直到达到的登录终止状态或者stage变为LOGINED
-                        if (Status.Stage.LOGINED.equals(status.getStage()) || interactiveStatusHandler(status, authToken)
-                                && (loginEndPhaseStatus.contains(status.getPhaseStatus()))) {
+                        if (Status.Stage.LOGINED.equals(status.getStage())
+                                || interactiveStatusHandler(status, authToken) && (loginEndPhaseStatus.contains(status.getPhaseStatus()))) {
                             return status;
                         } else {
                             return null;
@@ -112,8 +115,8 @@ public class OperatorTaskTest extends AbstractGxbTest {
     }
 
     @Override
-    protected Status submitLogin(String token, LoginInfo loginInfo) throws IOException {
-        return operatorApi.submitLogin(token, loginInfo).execute().body().getData();
+    protected Status submitLogin(String token, LoginRequest loginRequest) throws IOException {
+        return operatorApi.submitLogin(token, loginRequest).execute().body().getData();
     }
 
     @Override
@@ -123,6 +126,6 @@ public class OperatorTaskTest extends AbstractGxbTest {
 
     @Override
     protected Status submitVarifyCode(String token, String code) throws IOException {
-        return operatorApi.submitCode(token, code).execute().body().getData();
+        return operatorApi.submitCode(token, new CodeSubmitRequest(code)).execute().body().getData();
     }
 }

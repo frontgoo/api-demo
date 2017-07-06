@@ -9,31 +9,17 @@
 package com.gxb.sdk.parm;
 
 /**
+ * 目前gxb不区分二次验证提交的验证码类型。对图片验证码，短信验证码均采用相同的SubmitCodeInfo
  *
  * @author <A HREF="mailto:wangcheng@gxb.io">Cheng Wang</A>
  * @version 1.0
- * @since 2017年7月3日 下午5:53:34
+ * @since 2017年7月6日 上午10:54:16
  */
-public class LoginInfo {
-    private String username;
-    private String password;
+public class CodeSubmitRequest {
     private String code;
-    private String randomPassword;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public CodeSubmitRequest(String code) {
+        this.code = code;
     }
 
     public String getCode() {
@@ -43,14 +29,5 @@ public class LoginInfo {
     public void setCode(String code) {
         this.code = code;
     }
-
-    public String getRandomPassword() {
-        return randomPassword;
-    }
-
-    public void setRandomPassword(String randomPassword) {
-        this.randomPassword = randomPassword;
-    }
-
 
 }
