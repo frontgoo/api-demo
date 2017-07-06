@@ -43,14 +43,6 @@ public class AuthRequest {
         this.sdkVersion = builder.sdkVersion;
     }
 
-//    /**
-//     * 快速组装成form map
-//     * 
-//     * @return
-//     */
-//    public Map<String, String> createParams() {
-//        return GsonUtil.fromJson(GsonUtil.toJson(this), Map.class);
-//    }
 
     public String getAppId() {
         return appId;
@@ -92,13 +84,13 @@ public class AuthRequest {
         return sdkVersion;
     }
 
-    public static AuthRequestBuilder builder(String appId, String appSecret, String sequenceNo, long timestamp, String authItem) {
-        return new AuthRequestBuilder(appId, appSecret, sequenceNo, timestamp, authItem);
+    public static AuthRequestBuilder builder(String appId, String appSecurity, String sequenceNo, long timestamp, String authItem) {
+        return new AuthRequestBuilder(appId, appSecurity, sequenceNo, timestamp, authItem);
     }
 
     public static class AuthRequestBuilder {
         private final String appId;
-        private final String appSecret;
+        private final String appSecurity;
         private final String sequenceNo;
         private final String authItem;
         private final long timestamp;
@@ -110,9 +102,9 @@ public class AuthRequest {
         private String platform;
         private String sdkVersion;
 
-        public AuthRequestBuilder(String appId, String appSecret, String sequenceNo, long timestamp, String authItem) {
+        public AuthRequestBuilder(String appId, String appSecurity, String sequenceNo, long timestamp, String authItem) {
             this.appId = appId;
-            this.appSecret = appSecret;
+            this.appSecurity = appSecurity;
             this.sequenceNo = sequenceNo;
             this.authItem = authItem;
             this.timestamp = timestamp;
@@ -145,7 +137,7 @@ public class AuthRequest {
 
         public AuthRequest build() {
             // sign = md5(appId+appSecret+authItem+timestamp+sequenceNo); 顺序不能调换
-            this.sign = DigestUtils.md5Hex(String.format("%s%s%s%s%s", appId, appSecret, authItem, timestamp, sequenceNo));
+            this.sign = DigestUtils.md5Hex(String.format("%s%s%s%s%s", appId, appSecurity, authItem, timestamp, sequenceNo));
             return new AuthRequest(this);
         }
     }

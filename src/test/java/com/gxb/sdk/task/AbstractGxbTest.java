@@ -56,9 +56,12 @@ public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
     private OkHttpClient client = new OkHttpClient();
 
-    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();;
+    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
+    /**
+     * 此处请使用开户时创建的appid 和appSecurity，不然无法收到推送数据
+     */
     protected String appId = "gxba57f409ca1fe2dfa";
-    protected String appSecret = "2d1844d9dd8540149e936b0125c4f8de";
+    protected String appSecurity = "2d1844d9dd8540149e936b0125c4f8de";
 
     protected JPaneView view = null;
     protected Map<String, JTextField> fieldTextMap = new HashMap<>();
@@ -91,7 +94,7 @@ public abstract class AbstractGxbTest {
         AuthApi authApi = gxbApiFactory.newApi(AuthApi.class);
         AuthParm parm = getAuthParm();
         Response<GxbResponse<AuthToken>> response =
-                authApi.auth(AuthRequest.builder(appId, appSecret, parm.getSequenceNo(), parm.getTimestamp(), parm.getAuthItem())
+                authApi.auth(AuthRequest.builder(appId, appSecurity, parm.getSequenceNo(), parm.getTimestamp(), parm.getAuthItem())
                         .phone(parm.getPhone()).name(parm.getName()).idcard(parm.getIdcard()).build()).execute();
         AuthToken authToken = response.body().getData();
         logger.info("授权成功. authToken: " + authToken);

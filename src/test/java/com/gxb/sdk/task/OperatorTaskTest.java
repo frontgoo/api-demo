@@ -39,7 +39,7 @@ public class OperatorTaskTest extends AbstractGxbTest {
         // step1:生成token
         AuthToken authToken = getAuthToken();
         // step2:获取运营商授权初始化配置，需要手机号
-        LoginConfig loginConfig = operatorApi.getOperatorInitConf(authToken.getToken(), "15858284747").execute().body().getData();
+        LoginConfig loginConfig = operatorApi.getOperatorInitConf(authToken.getToken(), "15068820568").execute().body().getData();
         // step3：前端页面更加loginConfig动态的渲染页面，理论上本页面配置不会经常变更
         logger.info("已成功获取授权项{}-{}的登录初始化配置，最近更新时间{}", loginConfig.getAuthItem(), loginConfig.getAuthName(), loginConfig.getLastUpdatedAt());
         logger.info("当前网站支持{}种授权登录方式", loginConfig.getLoginForms().size());
