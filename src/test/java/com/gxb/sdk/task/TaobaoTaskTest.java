@@ -57,7 +57,7 @@ public class TaobaoTaskTest extends AbstractGxbTest {
     @Test
     public void doTaobaoTask() throws Exception {
         // step1:生成token
-        AuthToken authToken = getAuthToken();
+        final AuthToken authToken = getAuthToken();
         // step2:获取淘宝授权初始化配置，定位地址为杭州
         LoginConfig loginConfig = ecommerceApi.getTaobaoInitConf(authToken.getToken(), "120.1621610000", "30.2789730000").execute().body().getData();
         // step3：前端页面更加loginConfig动态的渲染页面，理论上本页面配置不会经常变更
@@ -73,7 +73,7 @@ public class TaobaoTaskTest extends AbstractGxbTest {
                 // step6:用swing mock提交执行登录
                 mockJPaneLogin(testLoginForm, authToken);
                 // step7:对登录结果开始发起轮询。登录轮询最多3分钟。每次任务必然会返回终止状态，gxb接口会保证这点，3分钟只是做业务的逻辑退避，理论上不需要设置
-                List<PhaseStatus> loginEndPhaseStatus = Arrays.asList(PhaseStatus.LOGIN_SUCCESS, PhaseStatus.LOGIN_FAILED, PhaseStatus.FAILED);
+                final List<PhaseStatus> loginEndPhaseStatus = Arrays.asList(PhaseStatus.LOGIN_SUCCESS, PhaseStatus.LOGIN_FAILED, PhaseStatus.FAILED);
                 Status loginResultStatus = processing(new Callable<Status>() {
                     @Override
                     public Status call() throws Exception {
@@ -91,7 +91,7 @@ public class TaobaoTaskTest extends AbstractGxbTest {
                 // 理论上step7&step8做的事情是一样的，只是所处的stage不同，如果对于stage阶段不关心，可合并处理
                 if (loginResultStatus != null && (PhaseStatus.LOGIN_SUCCESS.equals(loginResultStatus.getPhaseStatus())
                         || Stage.LOGINED.equals(loginResultStatus.getStage()))) {
-                    List<PhaseStatus> taskEndPhaseStatus = Arrays.asList(PhaseStatus.SUCCESS, PhaseStatus.FAILED);
+                    final List<PhaseStatus> taskEndPhaseStatus = Arrays.asList(PhaseStatus.SUCCESS, PhaseStatus.FAILED);
                     // step8:登录成功抓取持续轮训状态，支持终止（SUCCESS/FAIL）。登录轮询最多5分钟。每次任务必然会返回终止状态，gxb接口会保证这点，5分钟只是做业务的逻辑退避，理论上不需要设置
                     Status taskEndStatus = processing(new Callable<Status>() {
                         @Override

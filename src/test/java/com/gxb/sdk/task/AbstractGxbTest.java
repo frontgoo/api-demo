@@ -10,6 +10,7 @@ package com.gxb.sdk.task;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +55,15 @@ import retrofit2.Response;
  */
 public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
+
+    {
+        try {
+            System.setProperty("javax.net.ssl.trustStore", new File("cacerts/cacerts").getAbsolutePath());
+        } catch (Exception e) {
+            logger.warn("init cacerts...");
+        }
+    }
+
     private OkHttpClient client = new OkHttpClient();
 
     protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();;
