@@ -74,7 +74,7 @@ public abstract class AbstractGxbTest {
     protected String appSecurity = "2d1844d9dd8540149e936b0125c4f8de";
 
     protected JPaneView view = null;
-    protected Map<String, JTextField> fieldTextMap = new HashMap<>();
+    protected Map<String, JTextField> fieldTextMap = new HashMap<String, JTextField>();
 
 
 
@@ -277,7 +277,7 @@ public abstract class AbstractGxbTest {
                 JOptionPane.QUESTION_MESSAGE, view.getIcon(), options, options[0]);
         if (selectedOption == 0) {
             if (LoginFormType.NORMAL.equals(loginForm.getLoginFormType())) {
-                Map<String, String> parm = new HashMap<>();
+                Map<String, String> parm = new HashMap<String, String>();
                 for (String name : fieldTextMap.keySet()) {
                     String value = fieldTextMap.get(name).getText();
                     logger.info("获取输入参数名：{}，输入内容：{}", name, value);
