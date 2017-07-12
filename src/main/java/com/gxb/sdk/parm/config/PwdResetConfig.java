@@ -23,7 +23,7 @@ public class PwdResetConfig {
 
 
     public enum PassResetType {
-        SMS, URL
+        SMS, URL, TEL
     }
 
     /**
