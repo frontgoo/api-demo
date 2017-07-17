@@ -23,7 +23,6 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.gxb.sdk.exception.GxbApiException;
 import com.gxb.sdk.parm.GxbResponse;
-import com.gxb.sdk.task.AbstractGxbTest;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
