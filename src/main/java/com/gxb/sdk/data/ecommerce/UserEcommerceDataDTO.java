@@ -6,10 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
- * @author <A HREF="mailto:wangcheng@gxb.io">Cheng Wang</A>
- * @version 1.0
- * @since 2017年7月10日 下午2:21:06
+ * Created by junting on 2017/2/23.
  */
 public class UserEcommerceDataDTO implements Serializable {
     private static final long serialVersionUID = 8315376004389044098L;
@@ -19,6 +16,7 @@ public class UserEcommerceDataDTO implements Serializable {
     private List<EcommerceFeesAccountDTO> ecommercePaymentAccounts;
     private List<EcommerceTradeDTO> ecommerceTrades;
     private List<EcommerceZmCreditDTO> ecommerceZmCredits;
+    private List<TaobaoOrderDTO> taobaoOrders;
 
     public EcommerceBaseInfoDTO getEcommerceBaseInfo() {
         return ecommerceBaseInfo;
@@ -66,5 +64,13 @@ public class UserEcommerceDataDTO implements Serializable {
 
     public void setEcommerceZmCredits(List<EcommerceZmCreditDTO> ecommerceZmCredits) {
         this.ecommerceZmCredits = ecommerceZmCredits;
+    }
+
+    public List<TaobaoOrderDTO> getTaobaoOrders() {
+        return taobaoOrders;
+    }
+
+    public void setTaobaoOrders(List<TaobaoOrderDTO> taobaoOrders) {
+        this.taobaoOrders = taobaoOrders;
     }
 }
