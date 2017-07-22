@@ -23,6 +23,8 @@ public class TaobaoOrderDTO implements Serializable {
     private String tradeTypeName;
     private Date createTime;
     private Date endTime;
+    private Date payTime;
+
     /**
      * 商品总数量
      */
@@ -178,5 +180,15 @@ public class TaobaoOrderDTO implements Serializable {
     public void setTradeTypeName(String tradeTypeName) {
         this.tradeTypeName = tradeTypeName;
     }
+
+    public Date getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
+
+
 
 }
