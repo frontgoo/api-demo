@@ -1,7 +1,6 @@
 package com.gxb.sdk.parm;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 public class Status implements Serializable {
     /**
@@ -28,11 +27,11 @@ public class Status implements Serializable {
     public enum PhaseStatus {
         LOGIN_WAITING, LOGIN_SUCCESS, LOGIN_FAILED,
 
-        REFRESH_IMAGE_WAITING, REFRESH_IMAGE_SUCCESS, REFRESH_IMAGE_FAILED,
+        REFRESH_IMAGE_SUCCESS, REFRESH_IMAGE_FAILED,
 
-        REFRESH_SMS_WAITING, REFRESH_SMS_SUCCESS, REFRESH_SMS_FAILED,
+        REFRESH_SMS_SUCCESS, REFRESH_SMS_FAILED,
 
-        REFRESH_QR_CODE_WAITING, REFRESH_QR_CODE_SUCCESS, REFRESH_QR_CODE_FAILED,
+        REFRESH_QR_CODE_SUCCESS, REFRESH_QR_CODE_FAILED,
 
         SMS_VERIFY_NEW,
 
@@ -47,11 +46,29 @@ public class Status implements Serializable {
     }
 
     /**
-     * 当前任务当前状态
+     * 当前任务具体子状态。
+     * 
+     * LOGIN_WAITING：登录进行中；LOGIN_SUCCESS：登录成功；LOGIN_FAILED：登录失败；
+     * REFRESH_IMAGE_SUCCESS：刷新登录图片验证码成功；REFRESH_IMAGE_FAILED：刷新登录图片验证码失败；
+     * REFRESH_SMS_SUCCESS：刷新登录短信验证码成功；REFRESH_SMS_FAILED：刷新登录短信验证码失败；
+     * REFRESH_QR_CODE_SUCCESS：刷新登录二维码成功；REFRESH_SMS_FAILED：刷新登录二维码失败；
+     * QR_VERIFY_CONFIRMED：二维码被确认(打钩)；QR_VERIFY_FAILED：二维码认证失败；QR_VERIFY_SUCCESS：二维码认证成功；
+     * SMS_VERIFY_NEW：过程中需要短信验证；IMAGE_VERIFY_NEW：过程中需要图片验证；QR_VERIFY_NEW：过程中需要二维码验证；
+     * WAITING：任务进行中；SUCCESS：任务成功结束；FAILED：任务失败结束；
+     * 
      */
     private PhaseStatus phaseStatus;
-    private HashMap<String, Object> extra;
+    /**
+     * 状态的附属信息，比如弹窗的展示信息
+     */
+    private Extra extra;
+    /**
+     * 授权token
+     */
     private String token;
+    /**
+     * 状态时间戳
+     */
     private long timestamp;
 
     public Status(String token, Stage stage, PhaseStatus phaseStatus) {
@@ -62,40 +79,6 @@ public class Status implements Serializable {
         this.extra = new Extra();
     }
 
-    public class Extra extends HashMap<String, Object> {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 8118688790195970262L;
-        private static final String TITLE = "title";
-        private static final String TIPS = "tips";
-        private static final String REMARK = "remark";
-
-        public String getTitle() {
-            return (String) get(TITLE);
-        }
-
-        public void setTitle(String title) {
-            put(TITLE, title);
-        }
-
-        public String getTips() {
-            return (String) get(TIPS);
-        }
-
-        public void setTips(String tips) {
-            put(TIPS, tips);
-        }
-
-        public String getRemark() {
-            return (String) get(REMARK);
-        }
-
-        public void setRemark(String remark) {
-            put(REMARK, remark);
-        }
-
-    }
 
     public Stage getStage() {
         return stage;
@@ -114,17 +97,14 @@ public class Status implements Serializable {
     }
 
     public Extra getExtra() {
-        Extra extra = new Extra();
-        if (this.extra != null) {
-            extra.putAll(this.extra);
-        }
-        setExtra(extra);
         return extra;
     }
+
 
     public void setExtra(Extra extra) {
         this.extra = extra;
     }
+
 
     public String getToken() {
         return token;

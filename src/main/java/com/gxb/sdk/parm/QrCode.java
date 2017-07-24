@@ -14,7 +14,7 @@ package com.gxb.sdk.parm;
  * @version 1.0
  * @since 2017年7月2日 下午11:14:44
  */
-public class QrCodeResult {
+public class QrCode {
     /**
      * 二维码图片地址
      */

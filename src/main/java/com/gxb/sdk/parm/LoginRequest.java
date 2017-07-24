@@ -15,9 +15,21 @@ package com.gxb.sdk.parm;
  * @since 2017年7月3日 下午5:53:34
  */
 public class LoginRequest {
+    /**
+     * 用户名
+     */
     private String username;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 图片验证码
+     */
     private String code;
+    /**
+     * 随机短信验证码（运营商使用较多）
+     */
     private String randomPassword;
 
     public String getUsername() {

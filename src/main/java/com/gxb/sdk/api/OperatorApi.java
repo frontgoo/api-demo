@@ -8,8 +8,6 @@ import com.gxb.sdk.parm.config.LoginConfig;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -71,5 +69,5 @@ public interface OperatorApi {
      * @return
      */
     @POST("operator/v2/code_submit/{token}")
-    Call<GxbResponse<Status>> submitCode(@Path("token") String token, @Body CodeSubmitRequest request);
+    Call<GxbResponse<Status>> submitCode(@Path("token") String token, @Body CodeSubmitRequest codeSubmitRequest);
 }

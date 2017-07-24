@@ -8,12 +8,26 @@
  */
 package com.gxb.sdk.task;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.security.cert.PKIXParameters;
+import java.security.cert.TrustAnchor;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,7 +54,8 @@ public class AliapyTaskTest extends AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AliapyTaskTest.class);
 
     EcommerceApi ecommerceApi = gxbApiFactory.newApi(EcommerceApi.class);
-
+    static {
+    }
     /*
      * 生产每次授权所需要的基本参数实体
      * 
@@ -57,14 +72,14 @@ public class AliapyTaskTest extends AbstractGxbTest {
     @Test
     public void doAlipayTask() throws Exception {
         // step1:生成token
-        AuthToken authToken = getAuthToken();
+        final AuthToken authToken = getAuthToken();
         // step2:获取淘宝授权初始化配置，定位地址为杭州
         LoginConfig loginConfig = ecommerceApi.getAliapyInitConf(authToken.getToken(), "120.1621610000", "30.2789730000").execute().body().getData();
         // step3：前端页面更加loginConfig动态的渲染页面，理论上本页面配置不会经常变更
         logger.info("已成功获取授权项{}-{}的登录初始化配置，最近更新时间{}", loginConfig.getAuthItem(), loginConfig.getAuthName(), loginConfig.getLastUpdatedAt());
         logger.info("当前网站支持{}种授权登录方式", loginConfig.getLoginForms().size());
         // 此处默认选择第一种方式作为测试用例
-        LoginForm testLoginForm = loginConfig.getLoginForms().get(1);
+        LoginForm testLoginForm = loginConfig.getLoginForms().get(0);
         logger.info("本用例采用{}登录模式作为测试", testLoginForm.getFormName());
         // step4:loginForm 状态监测,验证当前的login模式是否处于正常服务状态
         if (loginFormStatusCheck(testLoginForm)) {
@@ -73,7 +88,7 @@ public class AliapyTaskTest extends AbstractGxbTest {
                 // step6:用swing mock提交执行登录
                 mockJPaneLogin(testLoginForm, authToken);
                 // step7:对登录结果开始发起轮询。登录轮询最多3分钟。每次任务必然会返回终止状态，gxb接口会保证这点，3分钟只是做业务的逻辑退避，理论上不需要设置
-                List<PhaseStatus> loginEndPhaseStatus = Arrays.asList(PhaseStatus.LOGIN_SUCCESS, PhaseStatus.LOGIN_FAILED, PhaseStatus.FAILED);
+                final List<PhaseStatus> loginEndPhaseStatus = Arrays.asList(PhaseStatus.LOGIN_SUCCESS, PhaseStatus.LOGIN_FAILED, PhaseStatus.FAILED);
                 Status loginResultStatus = processing(new Callable<Status>() {
                     @Override
                     public Status call() throws Exception {
@@ -91,7 +106,7 @@ public class AliapyTaskTest extends AbstractGxbTest {
                 // 理论上step7&step8做的事情是一样的，只是所处的stage不同，如果对于stage阶段不关心，可合并处理
                 if (loginResultStatus != null && (PhaseStatus.LOGIN_SUCCESS.equals(loginResultStatus.getPhaseStatus())
                         || Stage.LOGINED.equals(loginResultStatus.getStage()))) {
-                    List<PhaseStatus> taskEndPhaseStatus = Arrays.asList(PhaseStatus.SUCCESS, PhaseStatus.FAILED);
+                    final List<PhaseStatus> taskEndPhaseStatus = Arrays.asList(PhaseStatus.SUCCESS, PhaseStatus.FAILED);
                     // step8:登录成功抓取持续轮训状态，支持终止（SUCCESS/FAIL）。登录轮询最多5分钟。每次任务必然会返回终止状态，gxb接口会保证这点，5分钟只是做业务的逻辑退避，理论上不需要设置
                     Status taskEndStatus = processing(new Callable<Status>() {
                         @Override

@@ -10,6 +10,7 @@ package com.gxb.sdk.task;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ import com.gxb.sdk.parm.AuthRequest;
 import com.gxb.sdk.parm.AuthToken;
 import com.gxb.sdk.parm.GxbResponse;
 import com.gxb.sdk.parm.LoginRequest;
-import com.gxb.sdk.parm.QrCodeResult;
+import com.gxb.sdk.parm.QrCode;
 import com.gxb.sdk.parm.Status;
 import com.gxb.sdk.parm.Status.PhaseStatus;
 import com.gxb.sdk.parm.config.LoginField;
@@ -54,9 +55,18 @@ import retrofit2.Response;
  */
 public abstract class AbstractGxbTest {
     private static final Logger logger = LoggerFactory.getLogger(AbstractGxbTest.class);
+
+    {
+        try {
+            System.setProperty("javax.net.ssl.trustStore", new File("cacerts/cacerts").getAbsolutePath());
+        } catch (Exception e) {
+            logger.warn("init cacerts...");
+        }
+    }
+
     private OkHttpClient client = new OkHttpClient();
 
-    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("http://test.gxb.io/crawler/auth/").build();;
+    protected GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();;
     /**
      * 此处请使用开户时创建的appid 和appSecurity，不然无法收到推送数据
      */
@@ -64,7 +74,7 @@ public abstract class AbstractGxbTest {
     protected String appSecurity = "2d1844d9dd8540149e936b0125c4f8de";
 
     protected JPaneView view = null;
-    protected Map<String, JTextField> fieldTextMap = new HashMap<>();
+    protected Map<String, JTextField> fieldTextMap = new HashMap<String, JTextField>();
 
 
 
@@ -113,10 +123,9 @@ public abstract class AbstractGxbTest {
     protected boolean qrFormInit(LoginForm loginForm, AuthToken token) throws IOException {
         Status status = refreshLoginQrCode(token.getToken());
         if (status != null && PhaseStatus.REFRESH_QR_CODE_SUCCESS.equals(status.getPhaseStatus())) {
-            QrCodeResult qrCodeResult = GsonUtil.fromJson(status.getExtra().getRemark(), QrCodeResult.class);
-            logger.info("二维码获取成功，httpQrcode:{},rpcQrcode:{},weisite{}", qrCodeResult.getHttpQRCode(), qrCodeResult.getRpcQRCode(),
-                    qrCodeResult.getWebsite());
-            return mockQrCodeLoginView(loginForm, status, qrCodeResult);
+            QrCode qrCode = status.getExtra().getQrCode();
+            logger.info("二维码获取成功，httpQrcode:{},rpcQrcode:{},weisite{}", qrCode.getHttpQRCode(), qrCode.getRpcQRCode(), qrCode.getWebsite());
+            return mockQrCodeLoginView(loginForm, status, qrCode);
         } else {
             logger.warn("{}刷新二维码失败", loginForm.getFormName());
             return false;
@@ -131,7 +140,7 @@ public abstract class AbstractGxbTest {
      * @param qrCodeResult
      * @throws IOException
      */
-    protected boolean mockQrCodeLoginView(LoginForm loginForm, Status status, QrCodeResult qrCodeResult) throws IOException {
+    protected boolean mockQrCodeLoginView(LoginForm loginForm, Status status, QrCode qrCodeResult) throws IOException {
         // 生成二维码图片
         okhttp3.Response response = client.newCall(new Request.Builder().url(qrCodeResult.getHttpQRCode()).build()).execute();
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(response.body().bytes()));
@@ -268,7 +277,7 @@ public abstract class AbstractGxbTest {
                 JOptionPane.QUESTION_MESSAGE, view.getIcon(), options, options[0]);
         if (selectedOption == 0) {
             if (LoginFormType.NORMAL.equals(loginForm.getLoginFormType())) {
-                Map<String, String> parm = new HashMap<>();
+                Map<String, String> parm = new HashMap<String, String>();
                 for (String name : fieldTextMap.keySet()) {
                     String value = fieldTextMap.get(name).getText();
                     logger.info("获取输入参数名：{}，输入内容：{}", name, value);
@@ -334,9 +343,11 @@ public abstract class AbstractGxbTest {
      * @throws IOException
      */
     protected void mockQRStatusView(Status status) throws IOException {
-        QrCodeResult qrCodeResult = GsonUtil.fromJson(status.getExtra().getRemark(), QrCodeResult.class);
+        QrCode qrCode = status.getExtra().getQrCode();
+        logger.info("抓取过程中需要二维码验证，httpQrcode:{},rpcQrcode:{},weisite{}", qrCode.getHttpQRCode(), qrCode.getRpcQRCode(), qrCode.getWebsite());
+
         // 生成二维码图片
-        okhttp3.Response response = client.newCall(new Request.Builder().url(qrCodeResult.getHttpQRCode()).build()).execute();
+        okhttp3.Response response = client.newCall(new Request.Builder().url(qrCode.getHttpQRCode()).build()).execute();
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(response.body().bytes()));
         logger.info("抓取过程中二维码上方展示：{}，二维码下方引导的tips：{}", status.getExtra().getTitle(), status.getExtra().getTips());
         JPanel panel = new JPanel();

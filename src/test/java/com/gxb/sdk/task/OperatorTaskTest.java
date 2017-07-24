@@ -1,3 +1,11 @@
+/**
+ * This document and its contents are protected by copyright 2017 and owned by gxb.io Inc. The
+ * copying and reproduction of this document and/or its content (whether wholly or partly) or any
+ * incorporation of the same into any other material in any media or format of any kind is strictly
+ * prohibited. All rights are reserved.
+ *
+ * Copyright (c) gxb.io Inc. 2017
+ */
 package com.gxb.sdk.task;
 
 import java.io.IOException;
@@ -31,13 +39,13 @@ public class OperatorTaskTest extends AbstractGxbTest {
     @Override
     protected AuthParm getAuthParm() {
         String sequenceNo = UUID.randomUUID().toString().replace("-", "");
-        return new AuthParm(sequenceNo, "operator", System.currentTimeMillis(), "周海松", "15068820568", "330682199011221410");
+        return new AuthParm(sequenceNo, "operator_pro", System.currentTimeMillis(), "周海松", "15068820568", "330682199011221410");
     }
 
     @Test
     public void doOperatorTask() throws Exception {
         // step1:生成token
-        AuthToken authToken = getAuthToken();
+        final AuthToken authToken = getAuthToken();
         // step2:获取运营商授权初始化配置，需要手机号
         LoginConfig loginConfig = operatorApi.getOperatorInitConf(authToken.getToken(), "15068820568").execute().body().getData();
         // step3：前端页面更加loginConfig动态的渲染页面，理论上本页面配置不会经常变更
@@ -53,7 +61,7 @@ public class OperatorTaskTest extends AbstractGxbTest {
                 // step6:用swing mock提交执行登录
                 mockJPaneLogin(testLoginForm, authToken);
                 // step7:对登录结果开始发起轮询。登录轮询最多3分钟。每次任务必然会返回终止状态，gxb接口会保证这点，3分钟只是做业务的逻辑退避，理论上不需要设置
-                List<Status.PhaseStatus> loginEndPhaseStatus =
+                final List<Status.PhaseStatus> loginEndPhaseStatus =
                         Arrays.asList(Status.PhaseStatus.LOGIN_SUCCESS, Status.PhaseStatus.LOGIN_FAILED, Status.PhaseStatus.FAILED);
                 Status loginResultStatus = processing(new Callable<Status>() {
                     @Override
@@ -71,7 +79,7 @@ public class OperatorTaskTest extends AbstractGxbTest {
                 // 理论上step7&step8做的事情是一样的，只是所处的stage不同，如果对于stage阶段不关心，可合并处理
                 if (loginResultStatus != null && (Status.PhaseStatus.LOGIN_SUCCESS.equals(loginResultStatus.getPhaseStatus())
                         || Status.Stage.LOGINED.equals(loginResultStatus.getStage()))) {
-                    List<Status.PhaseStatus> taskEndPhaseStatus = Arrays.asList(Status.PhaseStatus.SUCCESS, Status.PhaseStatus.FAILED);
+                    final List<Status.PhaseStatus> taskEndPhaseStatus = Arrays.asList(Status.PhaseStatus.SUCCESS, Status.PhaseStatus.FAILED);
                     // step8:登录成功抓取持续轮训状态，支持终止（SUCCESS/FAIL）。登录轮询最多5分钟。每次任务必然会返回终止状态，gxb接口会保证这点，5分钟只是做业务的逻辑退避，理论上不需要设置
                     Status taskEndStatus = processing(new Callable<Status>() {
                         @Override
