@@ -46,12 +46,14 @@ public class EcommerceBaseInfoDTO implements Serializable {
 
     private Integer creditLevelAsSeller;
 
+    private Integer jiebeiAmount;
+
+    private BigDecimal jiebeiBalance;
+
     private Integer status;
 
     private String alipayAccountType;
     private String alipayUserId;
-
-
 
     public String getName() {
         return name;
@@ -219,6 +221,27 @@ public class EcommerceBaseInfoDTO implements Serializable {
         this.creditLevelAsSeller = creditLevelAsSeller;
     }
 
+    public Integer getJiebeiAmount() {
+        return jiebeiAmount;
+    }
+
+
+
+    public void setJiebeiAmount(Integer jiebeiAmount) {
+        this.jiebeiAmount = jiebeiAmount;
+    }
+
+
+
+    public BigDecimal getJiebeiBalance() {
+        return jiebeiBalance;
+    }
+
+
+
+    public void setJiebeiBalance(BigDecimal jiebeiBalance) {
+        this.jiebeiBalance = jiebeiBalance;
+    }
 
 
     public Integer getStatus() {

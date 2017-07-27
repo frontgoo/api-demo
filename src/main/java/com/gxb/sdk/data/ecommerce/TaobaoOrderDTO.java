@@ -52,7 +52,6 @@ public class TaobaoOrderDTO implements Serializable {
     private String taxNumber;
     private Boolean virtualSign;
 
-    
     public Boolean getVirtualSign() {
         return virtualSign;
     }
