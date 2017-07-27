@@ -50,6 +50,10 @@ public class EcommerceBaseInfoDTO implements Serializable {
 
     private BigDecimal jiebeiBalance;
 
+    private Integer status;
+
+    private String alipayAccountType;
+    private String alipayUserId;
 
     public String getName() {
         return name;
@@ -237,6 +241,33 @@ public class EcommerceBaseInfoDTO implements Serializable {
 
     public void setJiebeiBalance(BigDecimal jiebeiBalance) {
         this.jiebeiBalance = jiebeiBalance;
+    }
+
+
+    public Integer getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getAlipayAccountType() {
+        return alipayAccountType;
+    }
+
+    public void setAlipayAccountType(String alipayAccountType) {
+        this.alipayAccountType = alipayAccountType;
+    }
+
+
+    public String getAlipayUserId() {
+        return alipayUserId;
+    }
+
+    public void setAlipayUserId(String alipayUserId) {
+        this.alipayUserId = alipayUserId;
     }
 
 }
