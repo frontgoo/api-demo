@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Created by DOmmy on 2017/7/14.
  */
-public class TaobaoOrderDTO implements Serializable {
-
+public class TaobaoOrderDTO implements Serializable{
+    
     /**
      * 支付宝交易号
      */
@@ -23,8 +23,6 @@ public class TaobaoOrderDTO implements Serializable {
     private String tradeTypeName;
     private Date createTime;
     private Date endTime;
-    private Date payTime;
-
     /**
      * 商品总数量
      */
@@ -50,15 +48,7 @@ public class TaobaoOrderDTO implements Serializable {
 
     private String invoiceName;
     private String taxNumber;
-    private Boolean virtualSign;
 
-    public Boolean getVirtualSign() {
-        return virtualSign;
-    }
-
-    public void setVirtualSign(Boolean virtualSign) {
-        this.virtualSign = virtualSign;
-    }
 
     public String getTradeNumber() {
         return tradeNumber;
@@ -180,15 +170,5 @@ public class TaobaoOrderDTO implements Serializable {
     public void setTradeTypeName(String tradeTypeName) {
         this.tradeTypeName = tradeTypeName;
     }
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
-
-
 
 }
