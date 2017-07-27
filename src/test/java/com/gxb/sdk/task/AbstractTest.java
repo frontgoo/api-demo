@@ -1,32 +1,40 @@
 package com.gxb.sdk.task;
 
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.gxb.sdk.api.AbstractApi;
 import com.gxb.sdk.api.AuthApi;
 import com.gxb.sdk.client.GxbApiFactory;
-import com.gxb.sdk.parm.*;
-import com.gxb.sdk.parm.config.LoginField;
-import com.gxb.sdk.parm.config.LoginForm;
-import com.gxb.sdk.parm.data.enums.*;
-import com.gxb.sdk.parm.data.vo.*;
+import com.gxb.sdk.parm.AuthParm;
+import com.gxb.sdk.parm.AuthRequest;
+import com.gxb.sdk.parm.AuthToken;
+import com.gxb.sdk.parm.GxbResponse;
+import com.gxb.sdk.parm.data.enums.ArgumentTypeEnum;
+import com.gxb.sdk.parm.data.enums.ArgumentsAgainEnum;
+import com.gxb.sdk.parm.data.enums.AuthAgainEnum;
+import com.gxb.sdk.parm.data.enums.AuthItemEnum;
+import com.gxb.sdk.parm.data.enums.BizRetCode;
+import com.gxb.sdk.parm.data.enums.CaptchaTypeEnum;
+import com.gxb.sdk.parm.data.enums.LoginProcessEnum;
+import com.gxb.sdk.parm.data.vo.ArgumentVo;
+import com.gxb.sdk.parm.data.vo.AuthArgumentsVo;
+import com.gxb.sdk.parm.data.vo.AuthLoginVo;
+import com.gxb.sdk.parm.data.vo.CaptchaVo;
+import com.gxb.sdk.parm.data.vo.DictionaryVo;
+import com.gxb.sdk.parm.data.vo.OptionArgumentVo;
 import com.gxb.sdk.util.Base64;
 import com.gxb.sdk.util.FileUtils;
-import com.gxb.sdk.view.JPaneView;
-import okhttp3.OkHttpClient;
-import org.junit.Test;
-import org.omg.CORBA.INTERNAL;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import retrofit2.Response;
-import sun.jvmstat.perfdata.monitor.PerfStringVariableMonitor;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import retrofit2.Response;
 
 /**
  * V1版本授权项api调用.
