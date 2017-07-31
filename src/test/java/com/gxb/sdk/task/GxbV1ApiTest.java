@@ -10,7 +10,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gxb.sdk.api.AbstractApi;
+import com.gxb.sdk.api.GxbV1Api;
 import com.gxb.sdk.api.AuthApi;
 import com.gxb.sdk.client.GxbApiFactory;
 import com.gxb.sdk.parm.AuthParm;
@@ -38,11 +38,11 @@ import retrofit2.Response;
 /**
  * V1版本授权项api调用. 社保、学信、人行征信、京东、简历
  */
-public class AbstractTest {
-    private static final Logger logger = LoggerFactory.getLogger(AbstractTest.class);
+public class GxbV1ApiTest {
+    private static final Logger logger = LoggerFactory.getLogger(GxbV1ApiTest.class);
 
     static GxbApiFactory gxbApiFactory = GxbApiFactory.builder().baseUrl("https://prod.gxb.io/crawler/auth/").build();
-    static AbstractApi abstractApi = gxbApiFactory.newApi(AbstractApi.class);
+    static GxbV1Api abstractApi = gxbApiFactory.newApi(GxbV1Api.class);
 
     /**
      * 此处请使用开户时创建的appid 和appSecurity，不然无法收到推送数据

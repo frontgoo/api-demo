@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * V1版本授权项API
  */
-public interface AbstractApi {
+public interface GxbV1Api {
 
     /**
      * 获取授权参数
