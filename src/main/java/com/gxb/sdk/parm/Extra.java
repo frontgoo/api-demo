@@ -31,8 +31,7 @@ public class Extra implements Serializable {
      */
     private String tips;
     /**
-     * 状态为失败为LOGIN_FAILED，FAILED时给出相应的提示信息。如：用户名密码错误
-     * 状态为失败为REFRESH_IMAGE_SUCCESS时，是图片验证码的base64
+     * 状态为失败为LOGIN_FAILED，FAILED时给出相应的提示信息。如：用户名密码错误 状态为失败为REFRESH_IMAGE_SUCCESS时，是图片验证码的base64
      * 
      */
     private String remark;
@@ -40,6 +39,16 @@ public class Extra implements Serializable {
      * 二维码初始化信息
      */
     private QrCode qrCode;
+
+    /**
+     * 短信验证码刷新信息
+     */
+    private SmsCode smsCode;
+
+    /**
+     * 图片验证码刷新信息
+     */
+    private PicCode picCode;
 
     public String getTitle() {
         return title;
@@ -72,5 +81,23 @@ public class Extra implements Serializable {
     public void setQrCode(QrCode qrCode) {
         this.qrCode = qrCode;
     }
+
+    public SmsCode getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(SmsCode smsCode) {
+        this.smsCode = smsCode;
+    }
+
+    public PicCode getPicCode() {
+        return picCode;
+    }
+
+    public void setPicCode(PicCode picCode) {
+        this.picCode = picCode;
+    }
+
+
 
 }

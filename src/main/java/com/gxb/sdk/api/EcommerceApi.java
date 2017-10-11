@@ -89,7 +89,7 @@ public interface EcommerceApi {
 
 
     /**
-     * 刷新电商登录的短信验证码，目前暂未实际使用
+     * 刷新电商登录的短信验证码
      * 
      * @param token
      * @return
@@ -116,5 +116,5 @@ public interface EcommerceApi {
      */
     @POST("ecommerce/v2/code_submit/{token}")
     Call<GxbResponse<Status>> submitVarifyCode(@Path("token") String token, @Body CodeSubmitRequest request);
-
+    
 }

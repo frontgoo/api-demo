@@ -9,217 +9,265 @@ import java.util.Date;
 
 /**
  *
- * @author  <A HREF="mailto:wangcheng@gxb.io">Cheng Wang</A>
+ * @author <A HREF="mailto:wangcheng@gxb.io">Cheng Wang</A>
  * @version 1.0
- * @since   2017年7月10日 下午2:17:30 
+ * @since 2017年7月10日 下午2:17:30
  */
 public class EcommerceBaseInfoDTO implements Serializable {
-  private static final long serialVersionUID = 1L;
-  
+    private static final long serialVersionUID = 1L;
 
-  private String name;
 
-  private String taobaoAccount;
+    private String name;
 
-  private String alipayAccount;
+    private String taobaoAccount;
 
-  private String identityCard;
+    private String alipayAccount;
 
-  private String mobile;
+    private String identityCard;
 
-  private String email;
+    private String mobile;
 
-  private Date alipayRegistrationDatetime;
+    private String email;
 
-  private Boolean isVerified;
+    private Date alipayRegistrationDatetime;
 
-  private BigDecimal alipayBalance;
+    private Boolean isVerified;
 
-  private BigDecimal yuebaoBalance;
+    private BigDecimal alipayBalance;
 
-  private Integer huabeiAmount;
+    private BigDecimal yuebaoBalance;
 
-  private BigDecimal huabeiBalance;
+    private Integer huabeiAmount;
 
+    private BigDecimal huabeiBalance;
 
-  private Integer creditLevelAsBuyer;
 
-  private Integer creditLevelAsSeller;
+    private Integer creditLevelAsBuyer;
 
+    private Integer creditLevelAsSeller;
 
+    private Integer jiebeiAmount;
 
+    private BigDecimal jiebeiBalance;
 
-  
+    private Integer status;
 
+    private String alipayAccountType;
+    private String alipayUserId;
 
+    public String getName() {
+        return name;
+    }
 
-  public String getName() {
-    return name;
-  }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
 
 
+    public String getTaobaoAccount() {
+        return taobaoAccount;
+    }
 
-  public String getTaobaoAccount() {
-    return taobaoAccount;
-  }
 
 
+    public void setTaobaoAccount(String taobaoAccount) {
+        this.taobaoAccount = taobaoAccount;
+    }
 
-  public void setTaobaoAccount(String taobaoAccount) {
-    this.taobaoAccount = taobaoAccount;
-  }
 
 
+    public String getAlipayAccount() {
+        return alipayAccount;
+    }
 
-  public String getAlipayAccount() {
-    return alipayAccount;
-  }
 
 
+    public void setAlipayAccount(String alipayAccount) {
+        this.alipayAccount = alipayAccount;
+    }
 
-  public void setAlipayAccount(String alipayAccount) {
-    this.alipayAccount = alipayAccount;
-  }
 
 
+    public String getIdentityCard() {
+        return identityCard;
+    }
 
-  public String getIdentityCard() {
-    return identityCard;
-  }
 
 
+    public void setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+    }
 
-  public void setIdentityCard(String identityCard) {
-    this.identityCard = identityCard;
-  }
 
 
+    public String getMobile() {
+        return mobile;
+    }
 
-  public String getMobile() {
-    return mobile;
-  }
 
 
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-  public void setMobile(String mobile) {
-    this.mobile = mobile;
-  }
 
 
+    public String getEmail() {
+        return email;
+    }
 
-  public String getEmail() {
-    return email;
-  }
 
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
 
+    public Date getAlipayRegistrationDatetime() {
+        return alipayRegistrationDatetime;
+    }
 
-  public Date getAlipayRegistrationDatetime() {
-    return alipayRegistrationDatetime;
-  }
 
 
+    public void setAlipayRegistrationDatetime(Date alipayRegistrationDatetime) {
+        this.alipayRegistrationDatetime = alipayRegistrationDatetime;
+    }
 
-  public void setAlipayRegistrationDatetime(Date alipayRegistrationDatetime) {
-    this.alipayRegistrationDatetime = alipayRegistrationDatetime;
-  }
 
 
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
 
-  public Boolean getIsVerified() {
-    return isVerified;
-  }
 
 
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
 
-  public void setIsVerified(Boolean isVerified) {
-    this.isVerified = isVerified;
-  }
 
 
+    public BigDecimal getAlipayBalance() {
+        return alipayBalance;
+    }
 
-  public BigDecimal getAlipayBalance() {
-    return alipayBalance;
-  }
 
 
+    public void setAlipayBalance(BigDecimal alipayBalance) {
+        this.alipayBalance = alipayBalance;
+    }
 
-  public void setAlipayBalance(BigDecimal alipayBalance) {
-    this.alipayBalance = alipayBalance;
-  }
 
 
+    public BigDecimal getYuebaoBalance() {
+        return yuebaoBalance;
+    }
 
-  public BigDecimal getYuebaoBalance() {
-    return yuebaoBalance;
-  }
 
 
+    public void setYuebaoBalance(BigDecimal yuebaoBalance) {
+        this.yuebaoBalance = yuebaoBalance;
+    }
 
-  public void setYuebaoBalance(BigDecimal yuebaoBalance) {
-    this.yuebaoBalance = yuebaoBalance;
-  }
 
 
+    public Integer getHuabeiAmount() {
+        return huabeiAmount;
+    }
 
-  public Integer getHuabeiAmount() {
-    return huabeiAmount;
-  }
 
 
+    public void setHuabeiAmount(Integer huabeiAmount) {
+        this.huabeiAmount = huabeiAmount;
+    }
 
-  public void setHuabeiAmount(Integer huabeiAmount) {
-    this.huabeiAmount = huabeiAmount;
-  }
 
 
+    public BigDecimal getHuabeiBalance() {
+        return huabeiBalance;
+    }
 
-  public BigDecimal getHuabeiBalance() {
-    return huabeiBalance;
-  }
 
 
+    public void setHuabeiBalance(BigDecimal huabeiBalance) {
+        this.huabeiBalance = huabeiBalance;
+    }
 
-  public void setHuabeiBalance(BigDecimal huabeiBalance) {
-    this.huabeiBalance = huabeiBalance;
-  }
 
 
+    public Integer getCreditLevelAsBuyer() {
+        return creditLevelAsBuyer;
+    }
 
 
 
-  public Integer getCreditLevelAsBuyer() {
-    return creditLevelAsBuyer;
-  }
+    public void setCreditLevelAsBuyer(Integer creditLevelAsBuyer) {
+        this.creditLevelAsBuyer = creditLevelAsBuyer;
+    }
 
 
 
-  public void setCreditLevelAsBuyer(Integer creditLevelAsBuyer) {
-    this.creditLevelAsBuyer = creditLevelAsBuyer;
-  }
+    public Integer getCreditLevelAsSeller() {
+        return creditLevelAsSeller;
+    }
 
 
 
-  public Integer getCreditLevelAsSeller() {
-    return creditLevelAsSeller;
-  }
+    public void setCreditLevelAsSeller(Integer creditLevelAsSeller) {
+        this.creditLevelAsSeller = creditLevelAsSeller;
+    }
 
+    public Integer getJiebeiAmount() {
+        return jiebeiAmount;
+    }
 
 
-  public void setCreditLevelAsSeller(Integer creditLevelAsSeller) {
-    this.creditLevelAsSeller = creditLevelAsSeller;
-  }
 
+    public void setJiebeiAmount(Integer jiebeiAmount) {
+        this.jiebeiAmount = jiebeiAmount;
+    }
+
+
+
+    public BigDecimal getJiebeiBalance() {
+        return jiebeiBalance;
+    }
+
+
+
+    public void setJiebeiBalance(BigDecimal jiebeiBalance) {
+        this.jiebeiBalance = jiebeiBalance;
+    }
+
+
+    public Integer getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getAlipayAccountType() {
+        return alipayAccountType;
+    }
+
+    public void setAlipayAccountType(String alipayAccountType) {
+        this.alipayAccountType = alipayAccountType;
+    }
+
+
+    public String getAlipayUserId() {
+        return alipayUserId;
+    }
+
+    public void setAlipayUserId(String alipayUserId) {
+        this.alipayUserId = alipayUserId;
+    }
 
 }
