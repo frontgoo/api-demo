@@ -45,7 +45,19 @@ public interface EcommerceApi {
     Call<GxbResponse<LoginConfig>> getAliapyInitConf(@Path("token") String token, @Query("longitude") String longitude,
             @Query("latitude") String latitude);
 
-
+    /**
+     * 根据用户的所在地区获取初始化支付宝配置，gxb讲根据定位信息使用用户附近的ip进行抓取任务，减少异地登录提醒,提升交互体验
+     *
+     * ps:经纬度取不到或者不传并不会明显影响抓取成功率
+     *
+     * @param token 用户的授权token
+     * @param longitude 用户手机所在的定位经度
+     * @param latitude 用户手机所在的定位维度
+     * @return
+     */
+    @GET("ecommerce/v2/init_config/jingdong/{token}")
+    Call<GxbResponse<LoginConfig>> getJDInitConf(@Path("token") String token, @Query("longitude") String longitude,
+                                                     @Query("latitude") String latitude);
     /**
      * 获取电商任务的当前状态
      * 
@@ -77,7 +89,7 @@ public interface EcommerceApi {
 
 
     /**
-     * 刷新电商登录的短信验证码，目前暂未实际使用
+     * 刷新电商登录的短信验证码
      * 
      * @param token
      * @return
@@ -104,5 +116,5 @@ public interface EcommerceApi {
      */
     @POST("ecommerce/v2/code_submit/{token}")
     Call<GxbResponse<Status>> submitVarifyCode(@Path("token") String token, @Body CodeSubmitRequest request);
-
+    
 }
