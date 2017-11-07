@@ -17,6 +17,9 @@ public class UserEcommerceDataDTO implements Serializable {
     private List<EcommerceTradeDTO> ecommerceTrades;
     private List<EcommerceZmCreditDTO> ecommerceZmCredits;
     private List<TaobaoOrderDTO> taobaoOrders;
+    private List<TaobaoBOrderDTO> soldOrders;
+
+    private List<HuabeiConsumeDTO> huabeiConsumeList;
 
     public EcommerceBaseInfoDTO getEcommerceBaseInfo() {
         return ecommerceBaseInfo;
@@ -72,5 +75,20 @@ public class UserEcommerceDataDTO implements Serializable {
 
     public void setTaobaoOrders(List<TaobaoOrderDTO> taobaoOrders) {
         this.taobaoOrders = taobaoOrders;
+    }
+    public List<TaobaoBOrderDTO> getSoldOrders() {
+        return soldOrders;
+    }
+
+    public void setSoldOrders(List<TaobaoBOrderDTO> soldOrders) {
+        this.soldOrders = soldOrders;
+    }
+
+    public List<HuabeiConsumeDTO> getHuabeiConsumeList() {
+        return huabeiConsumeList;
+    }
+
+    public void setHuabeiConsumeList(List<HuabeiConsumeDTO> huabeiConsumeList) {
+        this.huabeiConsumeList = huabeiConsumeList;
     }
 }

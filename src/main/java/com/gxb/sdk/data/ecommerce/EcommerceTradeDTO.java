@@ -38,6 +38,13 @@ public class EcommerceTradeDTO implements Serializable {
 
     private String otherSideName;
 
+    private Integer payType;
+  
+    private String payAccount;
+
+    private Integer isDelete;
+
+
     public String getTitle() {
         return title;
     }
@@ -154,5 +161,28 @@ public class EcommerceTradeDTO implements Serializable {
     public void setBehaviorLableName(String behaviorLableName) {
         this.behaviorLableName = behaviorLableName;
     }
+    public Integer getIsDelete() {
+        return isDelete;
+      }
+
+      public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+      }
+
+      public Integer getPayType() {
+        return payType;
+      }
+
+      public void setPayType(Integer payType) {
+        this.payType = payType;
+      }
+
+      public String getPayAccount() {
+        return payAccount;
+      }
+
+      public void setPayAccount(String payAccount) {
+        this.payAccount = payAccount;
+      }
 
 }

@@ -36,22 +36,26 @@ public class EcommerceBaseInfoDTO implements Serializable {
     private BigDecimal alipayBalance;
 
     private BigDecimal yuebaoBalance;
+    private Integer huabeiStatus;
 
     private Integer huabeiAmount;
 
     private BigDecimal huabeiBalance;
-
-
+    private BigDecimal huabeiPenaltyAmount;
+    private Integer huabeiOverdueDays;
     private Integer creditLevelAsBuyer;
 
     private Integer creditLevelAsSeller;
+
+    private Integer jiebeiAmount;
+
+    private BigDecimal jiebeiBalance;
 
     private Integer status;
 
     private String alipayAccountType;
     private String alipayUserId;
-
-
+    private Integer taoScore;
 
     public String getName() {
         return name;
@@ -219,6 +223,27 @@ public class EcommerceBaseInfoDTO implements Serializable {
         this.creditLevelAsSeller = creditLevelAsSeller;
     }
 
+    public Integer getJiebeiAmount() {
+        return jiebeiAmount;
+    }
+
+
+
+    public void setJiebeiAmount(Integer jiebeiAmount) {
+        this.jiebeiAmount = jiebeiAmount;
+    }
+
+
+
+    public BigDecimal getJiebeiBalance() {
+        return jiebeiBalance;
+    }
+
+
+
+    public void setJiebeiBalance(BigDecimal jiebeiBalance) {
+        this.jiebeiBalance = jiebeiBalance;
+    }
 
 
     public Integer getStatus() {
@@ -246,5 +271,38 @@ public class EcommerceBaseInfoDTO implements Serializable {
     public void setAlipayUserId(String alipayUserId) {
         this.alipayUserId = alipayUserId;
     }
+    public BigDecimal getHuabeiPenaltyAmount() {
+        return huabeiPenaltyAmount;
+    }
 
+
+
+    public void setHuabeiPenaltyAmount(BigDecimal huabeiPenaltyAmount) {
+        this.huabeiPenaltyAmount = huabeiPenaltyAmount;
+    }
+
+    public Integer getHuabeiStatus() {
+        return huabeiStatus;
+    }
+
+    public void setHuabeiStatus(Integer huabeiStatus) {
+        this.huabeiStatus = huabeiStatus;
+    }
+
+    public Integer getHuabeiOverdueDays() {
+        return huabeiOverdueDays;
+    }
+
+
+
+    public void setHuabeiOverdueDays(Integer huabeiOverdueDays) {
+        this.huabeiOverdueDays = huabeiOverdueDays;
+    }
+    public Integer getTaoScore() {
+        return taoScore;
+    }
+
+    public void setTaoScore(Integer taoScore) {
+        this.taoScore = taoScore;
+    }
 }
