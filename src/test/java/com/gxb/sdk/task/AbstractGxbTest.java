@@ -404,7 +404,8 @@ public abstract class AbstractGxbTest {
         JTextField txt = new JTextField(6);
         panel.add(tips);
         panel.add(txt);
-        view = new JPaneView(panel, status.getExtra().getTitle(), null, JOptionPane.getRootFrame());
+        byte[] imageBytes = Base64.decodeBase64(status.getExtra().getRemark());
+        view = new JPaneView(panel, status.getExtra().getTitle(), new ImageIcon(ImageIO.read(new ByteArrayInputStream(imageBytes))), JOptionPane.getRootFrame());
         logger.info("模拟图片验证码渲染成功，请根据提示输入图片验证结果。");
         String[] options = {"OK"};
         int selectedOption = JOptionPane.showOptionDialog(view.getViewFrame(), view.getPanel(), view.getTitle(), JOptionPane.NO_OPTION,
